@@ -42,12 +42,12 @@ group :development, :test do
   gem "dotenv-rails", groups: [ :development, :test ]
   gem "factory_bot_rails"
   gem "minitest"
-    gem "web-console"
 end
 
 group :development do
   gem "better_errors"
   gem "annotate"
+  gem "web-console"
 end
 
 gem "bcrypt", "~> 3.1"
