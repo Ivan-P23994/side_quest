@@ -48,6 +48,7 @@ group :development do
   gem "better_errors"
   gem "annotate"
   gem "web-console"
+  gem "binding_of_caller"
 end
 
 gem "bcrypt", "~> 3.1"
