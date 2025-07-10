@@ -28,4 +28,21 @@
       </div>
     </div>
   <% end %>
+
+
+  <% if Rails.env.development? %>
+    <%= form_tag "/auth/developer", class:"btn btn-outline btn-primary gap-2", method: :post, data: { turbo: false } do %>
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5" />
+      <button type="submit">
+        Login with Developer
+      </button>
+    <% end %>
+  <% end %>
+
+  <%= form_tag "/auth/google_oauth2", class:"btn btn-outline btn-primary gap-2",  method: :post, data: { turbo: false } do %>
+    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5" />
+    <button type="submit">
+      Sign in with Google
+    </button>
+  <% end %>
 </div>

@@ -18,6 +18,7 @@
         <li><a>Item 3</a></li>
       </ul>
     </div>
+    
     <a class="btn btn-ghost text-xl text-orange-500">| Side Quest</a>
   </div>
   <div class="navbar-center hidden lg:flex">
@@ -36,6 +37,10 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn">Button</a>
+  <% if authenticated? %>
+    <%= button_to "Sign out", session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Sign in", new_session_path %>
+  <% end %>
   </div>
 </div>
