@@ -85,7 +85,7 @@ var pluginOptionsHandler = (() => {
     const {
       logs = true,
       root = ":root",
-      themes = ["light --default"],
+      themes = ["light --default bumblebee"],
       include,
       exclude,
       prefix = ""
