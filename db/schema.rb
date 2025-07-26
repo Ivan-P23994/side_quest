@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_15_211423) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_20_153111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_211423) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "missions", force: :cascade do |t|
+    t.string "title", limit: 55
+    t.text "body"
+    t.bigint "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_missions_on_owner_id"
+  end
+
   create_table "omni_auth_identities", force: :cascade do |t|
     t.string "uid"
     t.string "provider"
@@ -64,6 +73,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_211423) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "quest_rewards", force: :cascade do |t|
+    t.string "title", limit: 55
+    t.text "description"
+    t.bigint "quest_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id"], name: "index_quest_rewards_on_quest_id"
+  end
+
+  create_table "quests", force: :cascade do |t|
+    t.string "title", limit: 55
+    t.text "description"
+    t.bigint "mission_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id"], name: "index_quests_on_mission_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "ip_address"
@@ -74,20 +101,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_15_211423) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "user_quests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quest_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quest_id"], name: "index_user_quests_on_quest_id"
+    t.index ["user_id"], name: "index_user_quests_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_address", null: false
     t.string "password_digest", null: false
-    t.boolean "active", default: true, null: false
+    t.boolean "active", default: true
     t.string "user_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
-    t.check_constraint "user_type::text = ANY (ARRAY['business'::character varying::text, 'volunteer'::character varying::text, 'organization'::character varying::text])", name: "user_type_check"
+    t.check_constraint "user_type::text = ANY (ARRAY['business'::character varying, 'volunteer'::character varying, 'organization'::character varying]::text[])", name: "user_type_check"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "missions", "users", column: "owner_id"
   add_foreign_key "omni_auth_identities", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "quest_rewards", "quests"
+  add_foreign_key "quests", "missions"
   add_foreign_key "sessions", "users"
+  add_foreign_key "user_quests", "quests"
+  add_foreign_key "user_quests", "users"
 end

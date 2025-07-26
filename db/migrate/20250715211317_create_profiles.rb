@@ -1,5 +1,5 @@
 class CreateProfiles < ActiveRecord::Migration[8.0]
-  def change
+  def up
     create_table :profiles do |t|
       t.references :user, null: false, foreign_key: true
       t.string :website
@@ -11,5 +11,9 @@ class CreateProfiles < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+  end
+
+  def down
+    drop_table :profiles
   end
 end
