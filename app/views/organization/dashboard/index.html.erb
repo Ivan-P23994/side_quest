@@ -1,0 +1,57 @@
+
+<h1 class="font-bold text-4xl">Organization</h1>
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+  <% if @missions.any? %>
+    <!-- First mission -->
+    <div class="card bg-base-100 shadow-md">
+      <figure>
+        <%= image_tag "dublin-clean-up.jpg", class: "w-full h-auto" %>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title"><%= @missions.first.title %></h2>
+        <p><%= truncate(@missions.first.body, length: 100) %></p>
+        <div class="card-actions justify-end">
+<%= link_to "Edit", edit_mission_path(@missions.first), data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
+
+
+          <%= button_to "Deactivate",  method: :post, class: "btn btn-error" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Reserved slot -->
+  <div class="card bg-gray-100 shadow-md flex items-center justify-center text-gray-500 font-semibold">
+    <span>Reserved Spot</span>
+  </div>
+
+  <!-- Rest of missions -->
+  <% @missions.drop(1).each do |mission| %>
+    <div class="card bg-base-100 shadow-md">
+      <figure>
+        <%= image_tag "dublin-clean-up.jpg", class: "w-full h-auto" %>
+      </figure>
+      <div class="card-body">
+        <h2 class="card-title"><%= mission.title %></h2>
+        <p><%= truncate(mission.body, length: 100) %></p>
+        <div class="card-actions justify-end">
+<%= link_to "Edit", edit_mission_path(@missions.first), data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
+
+
+          <%= button_to "Deactivate", class: "btn btn-error" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
+<!-- Modal Frame -->
+<turbo-frame id="modal"></turbo-frame>
+
+
+
+

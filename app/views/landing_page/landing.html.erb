@@ -1,18 +1,40 @@
-    <%= render "shared/navigation_bar" %>
+<%= render "shared/navigation_bar" %>
 
-<div class="hero bg-base-200 min-h-screen">
+
+<!-- Hero Section 1 -->
+<section class="hero mt-30 ">
   <div class="hero-content flex-col lg:flex-row-reverse">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-      class="max-w-sm rounded-lg shadow-2xl"
-    />
-    <div>
-      <h1 class="text-5xl font-bold">Box Office News!</h1>
+    <%= image_tag "hero_power.png", class: "w-1/2 rounded-lg shadow-2xl" %>
+    <div class="w-1/2">
+      <h1 class="text-5xl sm:text-4xl md:text-4xl text-center font-bold">Community Starts With You!</h1>
       <p class="py-6">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
+             Sidequest makes volunteering easier, smarter and more rewarding. Browse local causes, join activitie you care about,
+        and earn voucher from businesses that support your impact - all in one streamlined dashboard designed for cumminity heroes like you.
       </p>
-      <%= link_to "Get Started", new_registration_path, class: "btn btn-primary" %>
+      <%= link_to "Find Your Quest", new_registration_path, class: "btn btn-primary" %>
     </div>
   </div>
-</div>
+</section>
+
+<section class="mt-20 ">
+  <div class="flex w-full text-white lg:flex-row sm-md-center-column p-4 gap-8">
+
+    <div class="card bg-emerald-400 rounded-box grid h-80 w-1/3 grow place-items-center p-8 sm:w-1/2">
+      <%= image_tag "helping_hands.png", class: "place-self-start" %>
+      <h2 class="text-2xl sm:text-xl md:text-xl font-bold text-center">Your Skills, Your Quest, Your Community</h2>
+      <p class="wrap"> We can offer you guidance and support in developing an engaging volunteer programme. </p>
+    </div>
+
+    <div class="card bg-indigo-800 rounded-box grid h-80 w-1/3 grow place-items-center p-8 sm:w-1/2">
+      <%= image_tag "community.png", class: "place-self-start" %>
+      <h2 class="text-2xl sm:text-xl md:text-xl font-bold text-center">Unlock New Partnerships and Reach More Volunteers</h2>
+      <p class="wrap"> We can offer you guidance and support in developing an engaging volunteer programme. </p>
+    </div>
+
+    <div class="card bg-orange-500 rounded-box grid h-80 w-1/3 grow place-items-center p-8 sm:w-1/2">
+      <%= image_tag "business.png", class: "place-self-start" %>
+      <h2 class="text-2xl sm:text-xl md:text-xl font-bold text-center">Put Your Business at the Heart of Local Change</h2>
+      <p class="wrap"> We can offer you guidance and support in developing an engaging volunteer programme. </p>
+    </div>
+  </div>
+</section>
