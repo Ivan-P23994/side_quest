@@ -34,8 +34,20 @@ module Authentication
       redirect_to new_session_path
     end
 
-    def after_authentication_url
-      session.delete(:return_to_after_authenticating) || root_url
+    def after_authentication_url(user: nil)
+      return_to = session.delete(:return_to_after_authenticating)
+      return return_to if return_to.present?
+
+      case user.user_type
+      when "business"
+        business_dashboard_url
+      when "volunteer"
+        volunteer_dashboard_url
+      when "organization"
+        organization_dashboard_url
+      else
+        root_url
+      end
     end
 
     def start_new_session_for(user, source: nil)
