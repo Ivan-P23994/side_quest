@@ -5,3 +5,14 @@
 @source "../../../app/views/**/*";
 
 @plugin "./daisyui.js";
+
+@layer components {
+  .sm-md-center-column {
+    @apply sm:flex sm:flex-col sm:justify-center sm:items-center;
+    @apply md:flex md:flex-col md:justify-center md:items-center;
+  },
+  .sm-md-heading-text {
+    @apply sm:text-xl;
+    @apply md:text-xl;
+  }
+}
