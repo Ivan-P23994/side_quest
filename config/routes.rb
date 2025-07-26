@@ -17,4 +17,22 @@ Rails.application.routes.draw do
   get "/auth/failure" => "sessions/omni_auths#failure", as: :omniauth_failure
 
   root to: "landing_page#landing"
+
+  # Dashboards
+  namespace :business do
+    get "/dashboard", to: "dashboard#index", as: :dashboard
+  end
+
+  namespace :volunteer do
+    get "/dashboard", to: "dashboard#index", as: :dashboard
+  end
+
+  namespace :organization do
+    get "/dashboard", to: "dashboard#index", as: :dashboard
+  end
+
+  # Missions
+  resources :missions do
+    post :deactivate, on: :member
+  end
 end
