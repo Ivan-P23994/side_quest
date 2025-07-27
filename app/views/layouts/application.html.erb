@@ -18,9 +18,10 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-white">
+  <body class="bg-white" data-controller="modal" data-action="keyup@window->modal#closeWithKeyboard click@window->modal#closeBackground">
     <main class="container flex flex-col mx-auto mt-2 bg-white">
       <%= yield %>
+      <%= render "shared/modal" %>
     </main>
   </body>
 </html>

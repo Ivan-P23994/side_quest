@@ -1,0 +1,3 @@
+<%= turbo_stream.append "mission-list" do %>
+  <%= render partial: "missions/mission_card", locals: { mission: @mission } %>
+<% end %>

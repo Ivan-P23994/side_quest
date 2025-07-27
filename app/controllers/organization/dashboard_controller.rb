@@ -4,6 +4,7 @@ class Organization::DashboardController < ApplicationController
   end
 
   private
+
   def set_missions
     @missions = Mission.where(owner_id: Current.user.id)
   end
