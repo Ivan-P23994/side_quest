@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   USER_TYPES = %w[business volunteer organization].freeze
 
-  scope :businesses, -> { where(user_type: 'business') }
-  scope :volunteers, -> { where(user_type: 'volunteer') }
-  scope :organizations, -> { where(user_type: 'organization') }
+  scope :businesses, -> { where(user_type: "business") }
+  scope :volunteers, -> { where(user_type: "volunteer") }
+  scope :organizations, -> { where(user_type: "organization") }
 
   has_secure_password
   has_many :sessions, dependent: :destroy
