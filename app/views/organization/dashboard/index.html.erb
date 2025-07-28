@@ -1,7 +1,7 @@
-
+<div id="flash-messages"></div>
 <div class="flex items-center justify-between mb-4">
   <h1 class="text-2xl font-bold">Organization Dashboard</h1>
-  <%= link_to "New Mission", new_mission_path, class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" }  %>
+  <%= link_to "New Mission", new_mission_path, class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" }%>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4" id="mission-list">

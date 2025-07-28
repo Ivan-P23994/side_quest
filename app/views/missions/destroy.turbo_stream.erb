@@ -1,0 +1,5 @@
+<%= turbo_stream.remove "#{dom_id(@mission)}"%>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Mission deactivated succesfully", flash_type: "notice" } %>
+<% end %>

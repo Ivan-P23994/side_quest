@@ -1,0 +1,7 @@
+<%= turbo_stream.replace @mission do %>
+  <%= render partial: "missions/mission_card", locals: { mission: @mission } %>
+<% end %>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Mission Updated Succesfully", flash_type: "notice" } %>
+<% end %>

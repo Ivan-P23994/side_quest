@@ -1,15 +1,13 @@
-    <div class="card bg-base-100 shadow-md">
+    <div class="card bg-base-100 shadow-md" id="<%= dom_id(mission)%>">
       <figure>
         <%= image_tag "dublin-clean-up.jpg", class: "w-full h-auto" %>
       </figure>
       <div class="card-body" >
         <h2 class="card-title" id="mission-<%= dom_id(mission)%>-title"><%= mission.title %></h2>
         <p id="mission-<%= dom_id(mission)%>-body"><%= truncate(mission.body, length: 100) %></p>
-        <div class="card-actions justify-end">
-<%#= link_to "Edit", edit_mission_path(@missions.first), data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
-<%#= link_to  "Edit", edit_mission_path(@missions.first), data: { action: "click->modal#open", turbo_stream: "" }, class: "w-full ml-3"%>
-
-          <%= button_to "Deactivate", class: "btn btn-error" %>
+        <div class="flex flex-row justify-end items-end">
+          <%= link_to  "Edit", edit_mission_path(mission), data: { action: "click->modal#open", turbo_stream: ""}, class: "btn btn-primary mr-2"%>
+          <%= link_to  "Deactivate", mission_path(mission), data: { turbo_method: :delete } , class: "btn btn-primary mr-2"%>
         </div>
       </div>
     </div>
