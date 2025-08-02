@@ -1,0 +1,8 @@
+<%= turbo_stream.append "quests-list" do %>
+  <%= render partial: "quests/quest_card", locals: { quest: @quest } %>
+  <%= render partial: 'quests/quest_actions', locals: { quest: @quest } %>
+<% end %>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Quest created succesfully", flash_type: "notice" } %>
+<% end %>

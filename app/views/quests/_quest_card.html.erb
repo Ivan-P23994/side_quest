@@ -1,0 +1,11 @@
+<div class="bg-base-100 border-base-300 collapse border col-span-9" id="<%= dom_id(quest) %>">
+  <input type="checkbox" class="peer" />
+
+  <div class="flex flex-row items-center collapse-title bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content">
+    <%= quest.title %>
+  </div>
+
+  <div class="collapse-content bg-primary peer-checked:bg-indigo-100 peer-checked:text-black peer-checked:py-8">
+    <%= quest.description %>
+  </div>
+</div>

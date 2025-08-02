@@ -1,0 +1,6 @@
+<%= turbo_stream.remove "#{dom_id(@quest)}"%>
+<%= turbo_stream.remove "#{dom_id(@quest)}-buttons"%>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Quest deactivated succesfully", flash_type: "notice" } %>
+<% end %>

@@ -1,0 +1,11 @@
+<%= turbo_stream.replace @quest do %>
+  <%= render partial: "quests/quest_card", locals: { quest: @quest } %>
+<% end %>
+
+<%= turbo_stream.replace("#{dom_id(@quest)}-buttons") do %>
+  <%= render partial: "quests/quest_actions", locals: { quest: @quest } %>
+<% end %>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Quest Updated Succesfully", flash_type: "notice" } %>
+<% end %>

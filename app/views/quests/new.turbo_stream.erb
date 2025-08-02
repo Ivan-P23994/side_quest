@@ -1,0 +1,2 @@
+<%= turbo_stream.update "modal-title", "Create Quest" %>
+<%= turbo_stream.update "modal-body", partial: "form", locals: { quest: @quest, mission_id: params[:mission_id] } %>

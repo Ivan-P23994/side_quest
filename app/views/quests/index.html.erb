@@ -1,0 +1,23 @@
+<div class="flex justify-between items-center">
+  <h1>List of Quests for given Mission</h1>
+  <%= link_to "Create Quest", new_quest_path(mission_id: @mission.id), class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" } %>
+</div>
+
+
+<% if @quests.empty? %>
+
+  <div id="quests-list"  class="flex flex-row justify-between items-center mt-20">
+    No quests found for this mission.
+  </div>
+
+<% else %>
+
+  <div id="quests-list" class="grid grid-cols-10 mt-20">
+    <% @quests.each do |quest| %>
+      <%= render partial: 'quests/quest_card', locals: { quest: quest } %>
+
+      <%= render partial: 'quests/quest_actions', locals: { quest: quest } %>
+    <% end %>
+  </div>
+
+<% end %>

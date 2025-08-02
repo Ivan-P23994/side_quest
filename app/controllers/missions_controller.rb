@@ -17,35 +17,33 @@ class MissionsController < ApplicationController
         format.turbo_stream
       else
         render turbo_stream: turbo_stream.prepend(
-        "flash-messages",
-        partial: "shared/alert",
-        locals: { message: "Mission creation failed" }
-      )
+          "flash-messages",
+          partial: "shared/alert",
+          locals: { message: "Mission creation failed" }
+        )
       end
     end
   end
 
-def edit
-  @mission = Mission.find(params[:id])
-end
+  def edit
+    @mission = Mission.find(params[:id])
+  end
 
+  def update
+    @mission = Mission.find(params[:id])
 
-
-def update
-  @mission = Mission.find(params[:id])
-
-  if @mission.update(mission_params)
-    respond_to do |format|
-      format.turbo_stream
-    end
-  else
-    render turbo_stream: turbo_stream.prepend(
+    if @mission.update(mission_params)
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      render turbo_stream: turbo_stream.prepend(
         "flash-messages",
         partial: "shared/alert",
         locals: { message: "Mission edit failed" }
       )
+    end
   end
-end
 
   def destroy
     @mission = Mission.find(params[:id])
@@ -54,17 +52,18 @@ end
       if @mission.destroy
         format.turbo_stream
       else
-      render turbo_stream: turbo_stream.prepend(
-        "flash-messages",
-        partial: "shared/alert",
-        locals: { message: "Mission deactivation failed" }
-      )
+        render turbo_stream: turbo_stream.prepend(
+          "flash-messages",
+          partial: "shared/alert",
+          locals: { message: "Mission deactivation failed" }
+        )
       end
     end
   end
-end
 
-private
-def mission_params
-  params.require(:mission).permit(:title, :body, :owner_id)
+  private
+
+  def mission_params
+    params.require(:mission).permit(:title, :body, :owner_id)
+  end
 end

@@ -31,8 +31,14 @@ Rails.application.routes.draw do
     get "/dashboard", to: "dashboard#index", as: :dashboard
   end
 
+  #Profile
+  resource :profile
+
   # Missions
   resources :missions do
     post :deactivate, on: :member
   end
+
+  # Quests
+  resources :quests
 end
