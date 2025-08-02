@@ -1,6 +1,6 @@
 class QuestsController < ApplicationController
-  before_action :set_mission, only: [:new, :create, :index]
-  before_action :set_quest, only: [:show, :edit, :update, :destroy]
+  before_action :set_mission, only: [ :new, :create, :index ]
+  before_action :set_quest, only: [ :show, :edit, :update, :destroy ]
 
   def index
     if params[:mission_id]
@@ -54,7 +54,7 @@ class QuestsController < ApplicationController
 
   def create
     @quest = Quest.new(quest_params)
-    
+
     respond_to do |format|
       if @quest.save
         format.turbo_stream
@@ -81,5 +81,4 @@ class QuestsController < ApplicationController
   def set_mission
     Mission.find(params[:mission_id]) if params[:mission_id]
   end
-
 end
