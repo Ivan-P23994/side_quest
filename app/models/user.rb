@@ -21,6 +21,18 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
+  def dashboard_path
+    case user_type
+    when 'business'
+      Rails.application.routes.url_helpers.business_dashboard_path
+    when 'volunteer'
+      Rails.application.routes.url_helpers.volunteer_dashboard_path
+    when 'organization'
+      Rails.application.routes.url_helpers.organization_dashboard_path
+    else
+      Rails.application.routes.url_helpers.root_path
+    end
+  end
 
   def self.create_from_oauth(auth)
     email = auth.info.email
