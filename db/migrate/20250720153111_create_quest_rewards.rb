@@ -1,7 +1,7 @@
 class CreateQuestRewards < ActiveRecord::Migration[8.0]
   def up
     create_table :quest_rewards do |t|
-      t.string :title, limit: 55
+      t.string :title, limit: 120
       t.text :description, limit: 600
       t.references :quest, null: false, foreign_key: true
 

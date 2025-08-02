@@ -1,5 +1,6 @@
 require 'faker'
 require 'bcrypt'
+require 'csv'
 
 puts "Seeding users..."
 
@@ -25,15 +26,34 @@ end
 
 puts "Seeding missions..."
 
-organization_user = users["organization"]
+# Mission Seeding
 
-5.times do
+missions_csv_path = Rails.root.join('db', 'missions.csv')  # adjust path if needed
+missions_csv_text = File.read(missions_csv_path)
+missions_csv = CSV.parse(missions_csv_text, headers: true)
+
+missions_csv.each do |row|
+  puts row.to_h.inspect
   Mission.create!(
-    title: Faker::Lorem.sentence(word_count: 3, supplemental: false, random_words_to_add: 2)[0..54],
-    body: Faker::Lorem.paragraph(sentence_count: 4),
-    owner_id: organization_user.id
+    title: row['title'],
+    description: row['description'],
+    owner_id: users['organization'].id
   )
 end
 
-puts "Created 5 missions for organization user: #{organization_user.email_address}"
+
+
+# Quest Seeding
+
+puts "Seeding quests..."
+
+quests_csv_path = Rails.root.join('db', 'quests.csv')  # adjust path if needed
+quests_csv_text = File.read(quests_csv_path)
+quests_csv = CSV.parse(quests_csv_text, headers: true)
+
+quests_csv.each do |row|
+  Quest.create!(title: row['title'], mission_id: row['mission_id'], description: row['description'])
+end
+
+
 puts "Seeding completed!"

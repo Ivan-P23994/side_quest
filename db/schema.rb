@@ -43,8 +43,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_153111) do
   end
 
   create_table "missions", force: :cascade do |t|
-    t.string "title", limit: 55
-    t.text "body"
+    t.string "title", limit: 120
+    t.text "description"
     t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_153111) do
   end
 
   create_table "quest_rewards", force: :cascade do |t|
-    t.string "title", limit: 55
+    t.string "title", limit: 120
     t.text "description"
     t.bigint "quest_id", null: false
     t.datetime "created_at", null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_153111) do
   end
 
   create_table "quests", force: :cascade do |t|
-    t.string "title", limit: 55
+    t.string "title", limit: 120
     t.text "description"
     t.bigint "mission_id", null: false
     t.datetime "created_at", null: false
