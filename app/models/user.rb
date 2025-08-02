@@ -23,11 +23,11 @@ class User < ApplicationRecord
 
   def dashboard_path
     case user_type
-    when 'business'
+    when "business"
       Rails.application.routes.url_helpers.business_dashboard_path
-    when 'volunteer'
+    when "volunteer"
       Rails.application.routes.url_helpers.volunteer_dashboard_path
-    when 'organization'
+    when "organization"
       Rails.application.routes.url_helpers.organization_dashboard_path
     else
       Rails.application.routes.url_helpers.root_path
