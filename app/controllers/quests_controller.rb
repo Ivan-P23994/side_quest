@@ -117,7 +117,7 @@ class QuestsController < ApplicationController
         locals: { message: "You can not reject this application" }
       )
     end
-  end 
+  end
 
   private
 
