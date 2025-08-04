@@ -3,7 +3,7 @@
   <h1 class="text-2xl font-bold">Volunteer Dashboard</h1>
   <div class="flex items-center space-x-6">
     <%= link_to "Discover Missions", new_mission_path, class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" } %>
-    <%= button_to "My Quests", session_path, method: :delete, class: "btn btn-primary" %>
+    <%= button_to "My Quests", my_quests_quests_path, method: :get, class: "btn btn-primary" %>
     <%= button_to "Sign out", session_path, method: :delete, class: "btn btn-primary" %>
   </div>
 </div>

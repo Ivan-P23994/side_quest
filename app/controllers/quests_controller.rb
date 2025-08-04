@@ -34,6 +34,10 @@ class QuestsController < ApplicationController
     # @quest is set by before_action :set_quest
   end
 
+  def my_quests
+    @quests = current_user.quests
+  end
+
   def edit
     # @quest is set by before_action :set_quest
     @mission = @quest.mission if @quest.mission
@@ -91,6 +95,7 @@ class QuestsController < ApplicationController
     @application = Application.find(params[:id])
     if @application.approver == current_user && @application.status == "pending"
       @application.update(status: "approved")
+      register_user_quest
       respond_to do |format|
         format.turbo_stream
       end
@@ -137,7 +142,15 @@ class QuestsController < ApplicationController
     Application.where(approver: current_user, quest: @quest).where.not(status: "pending")
   end
 
-    def not_processed_applications
+  def not_processed_applications
     Application.where(approver: current_user, quest: @quest).where(status: "pending")
+  end
+
+  def register_user_quest
+    UserQuest.create!(
+      user: current_user,
+      quest: @quest,
+      status: "active"
+    )
   end
 end

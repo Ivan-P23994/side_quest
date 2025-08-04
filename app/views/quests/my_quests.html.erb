@@ -1,0 +1,22 @@
+<div id="flash-messages"></div>
+<div class="flex justify-between items-center mt-10">
+  <h1 class="text-2xl font-bold">My Quests</h1>
+  <div>
+    <%= link_to "Back to Dashboard", volunteer_dashboard_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+
+<% if @quests.empty? %>
+  <div id="quests-list" class="flex flex-row justify-between items-center mt-20 text-gray-500">
+    You have not joined any quests yet.
+  </div>
+<% else %>
+  <div id="quests-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+    <% @quests.each do |quest| %>
+      <div class="col-span-1">
+        <%= render partial: 'quests/quest_card', locals: { quest: quest } %>
+        <!-- If you want volunteer-specific actions, add another partial here -->
+      </div>
+    <% end %>
+  </div>
+<% end %>

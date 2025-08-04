@@ -96,6 +96,25 @@ Quest.all.each do |quest|
   end
 end
 
+volunteer_user = users['volunteer']
+sample_quests = Quest.limit(10)
+
+sample_quests.each do |quest|
+  # Create a UserQuest record
+  UserQuest.create!(
+    user: volunteer_user,
+    quest: quest
+  )
+
+  # Create an Application record (if one doesn't already exist)
+  Application.create!(
+    quest: quest,
+    applicant: volunteer_user,
+    approver: quest.mission.owner,
+    status: "approved"
+  )
+end
+
 
 
 puts "Seeding completed!"
