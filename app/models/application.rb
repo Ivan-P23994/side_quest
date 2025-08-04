@@ -17,5 +17,4 @@ class Application < ApplicationRecord
   def approver_must_be_organization
     errors.add(:approver, "must be an organization") unless approver&.organization?
   end
-
 end
