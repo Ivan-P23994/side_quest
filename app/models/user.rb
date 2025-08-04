@@ -34,6 +34,22 @@ class User < ApplicationRecord
     end
   end
 
+  def can_apply_for?(quest)
+    return false unless volunteer?
+
+    UserQuest.where(user: self, quest: quest).empty? && Application.where(applicant: self, quest: quest).empty?
+  end
+
+  def self.find_by_email(email)
+    find_by(email_address: email.strip.downcase)
+  end
+
+  def self.create_from_registration(params)
+    user = self.new(params)
+    user.save
+    user
+  end
+
   def self.create_from_oauth(auth)
     email = auth.info.email
     user = self.new email_address: email, password: SecureRandom.base64(64).truncate_bytes(64)
@@ -47,5 +63,17 @@ class User < ApplicationRecord
     # TODO: same as above, you could save additional information about the user
     # User.assign_names_from_auth(auth, self):_
     # save if first_name_changed? || last_name_changed?
+  end
+
+  def volunteer?
+    user_type == "volunteer"
+  end
+
+  def organization?
+    user_type == "organization"
+  end
+
+  def business?
+    user_type == "business"
   end
 end

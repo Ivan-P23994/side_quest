@@ -1,4 +1,72 @@
-<div>
-  <h1 class="font-bold text-4xl">Volunteer::Dashboard#index</h1>
-  <p>Find me in app/views/volunteer/dashboard/index.html.erb</p>
+<div id="flash-messages"></div>
+<div class="flex items-center justify-between mt-10">
+  <h1 class="text-2xl font-bold">Volunteer Dashboard</h1>
+  <div class="flex items-center space-x-6">
+    <%= link_to "Discover Missions", new_mission_path, class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" } %>
+    <%= button_to "My Quests", session_path, method: :delete, class: "btn btn-primary" %>
+    <%= button_to "Sign out", session_path, method: :delete, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<div
+  class="hero h-[calc(100vh*1/2)] relative mt-20 "
+  style="background-image: url(<%= asset_path('volunteer_hero.jpg') %>); background-size: cover; background-position: center;"
+>
+  <!-- Blurred overlay -->
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm z-0"></div>
+
+  <!-- Content -->
+  <div class="hero-content text-neutral-content text-center relative z-10">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-amber-600 text-5xl font-bold">Your Skills</h1>
+      <h1 class="mb-5 text-amber-600 text-5xl font-bold">Your Quest</h1>
+      <h1 class="mb-5 text-amber-600 text-5xl font-bold">Your Community</h1>
+      <p class="mb-5">
+        Whether you're passionate about helping others, developing new skills, or connecting with like-minded people, your next adventure starts here. 
+        Your skills matter, your quest is meaningful, and your community is waiting.
+      </p>
+      <button class="btn btn-primary">Find Your Quest</button>
+    </div>
+  </div>
+</div>
+
+<%= form_with url: volunteer_filter_quests_path, method: :get, local: true,
+              class: "flex flex-wrap items-end gap-4 mt-20 border border-gray-300 rounded-lg p-4 shadow-sm bg-white" do %>
+
+  <!-- Search fields on the left -->
+  <div class="flex flex-col">
+    <%= label_tag :quest_title, "Quest Name", class: "text-md font-bold text-indigo-700 mb-1" %>
+    <%= text_field_tag :quest_title, params[:quest_title], placeholder: "e.g. Tree Planting",
+                       class: "input input-bordered w-64 border-gray-300" %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= label_tag :mission_title, "Mission Title", class: "text-md font-bold text-indigo-700 mb-1" %>
+    <%= text_field_tag :mission_title, params[:mission_title], placeholder: "e.g. GreenFuture",
+                       class: "input input-bordered w-64 border-gray-300" %>
+  </div>
+
+  <!-- Buttons on the right -->
+  <div class="flex gap-2 ml-auto">
+    <%= submit_tag "Filter", class: "btn btn-primary", data: { turbo_stream:"" }%>
+    <%= link_to "Reset", quests_path, class: "btn btn-outline" %>
+  </div>
+<% end %>
+
+
+<div class="mt-8 px-4 sm:px-6 lg:px-8 mb-40">
+  <% if @quests&.any? %>
+
+    <div id="quests-list" class="grid grid-cols-10 mt-20 gap-4">
+    <% @quests.each do |quest| %>
+      <%= render 'volunteer/dashboard/quest_card', quest: quest %>
+      <%= render 'volunteer/dashboard/quest_actions', quest: quest %>
+    <% end %>
+    </div>
+
+  <% else %>
+    <div class="text-center text-gray-500 text-base sm:text-lg py-12 px-4" id="quests-list">
+      No quests found matching your search.
+    </div>
+  <% end %>
 </div>

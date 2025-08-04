@@ -1,0 +1,18 @@
+<tr id="processed-<%= dom_id(application) %>">
+  <td class="px-4 py-3 whitespace-nowrap text-gray-700">
+    <%= application.applicant&.email_address %>
+  </td>
+  <td class="px-4 py-3 whitespace-nowrap">
+    <% status_class = case application.status
+        when "approved" then 'bg-green-100 text-green-800'
+        when "rejected" then 'bg-red-100 text-red-800'
+        else 'bg-gray-100 text-gray-800'
+      end %>
+    <span class="inline-flex items-center rounded px-2 py-1 text-xs font-medium <%= status_class %>">
+      <%= application.status.capitalize %>
+    </span>
+  </td>
+  <td class="px-4 py-3 whitespace-nowrap text-gray-500 text-xs">
+    <%= application.created_at.strftime("%d %b %Y, %H:%M") %>
+  </td>
+</tr>

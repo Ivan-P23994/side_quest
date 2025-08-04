@@ -1,0 +1,43 @@
+<div class="bg-base-100 border-base-300 collapse border col-span-9" id="<%= dom_id(quest) %>">
+  <input type="checkbox" class="peer" />
+
+  <!-- Header -->
+  <div class="flex flex-row items-center collapse-title bg-primary text-primary-content peer-checked:bg-primary peer-checked:text-secondary-content">
+    <%= quest.mission.title %> -- <p class="text-style-italic" >  <%= quest.title %></p>
+  </div>
+
+  <!-- Collapsible Content -->
+  <div class="collapse-content bg-primary peer-checked:bg-indigo-100 peer-checked:text-black peer-checked:py-8">
+    
+    <!-- Two-column layout -->
+    <div class="flex flex-row w-full gap-6">
+      
+      <!-- Left: Image (50%) -->
+      <div class="w-1/2">
+        <%= image_tag "clean2.jpeg", alt: "Quest image", class: "rounded shadow-md w-full h-full object-cover" %>
+      </div>
+
+      <!-- Right: Text content (50%) with description pinned to bottom -->
+      <div class="w-1/2 flex flex-col justify-between min-h-60 gap-2">
+        <!-- Top details -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm text-gray-500">
+            <strong>Organization:</strong> <%= quest.mission.title %>
+          </span>
+          <span class="text-sm text-gray-500">
+            <strong>Location:</strong> Dublin
+          </span>
+          <span class="text-sm text-gray-500">
+            <strong>Date:</strong> <%= quest.created_at.strftime("%B %d, %Y") if quest.created_at %>
+          </span>
+        </div>
+
+        <!-- Bottom-aligned description -->
+        <p class="text-base text-gray-700">
+          <%= quest.description %>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

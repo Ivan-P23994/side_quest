@@ -1,0 +1,9 @@
+<%= turbo_stream.remove "#{dom_id(@application)}"%>
+
+<%= turbo_stream.append "processed-applications-list" do %>
+  <%= render "processed_application", application: @application %>
+<% end %>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Application processed", flash_type: "notice" } %>
+<% end %>

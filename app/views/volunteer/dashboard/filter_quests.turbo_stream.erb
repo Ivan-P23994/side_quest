@@ -1,0 +1,15 @@
+<%= turbo_stream.replace("quests-list") do %>
+  <% if @quests&.any? %>
+  <div id="quests-list" class="grid grid-cols-10 mt-20 gap-4">
+  <% @quests.each do |quest| %>
+    <%= render 'volunteer/dashboard/quest_card', quest: quest %>
+    <%= render partial: 'quests/quest_actions', locals: { quest: quest } %>
+  <% end %>
+  </div>
+
+  <% else %>
+    <div class="text-center text-gray-500 text-base sm:text-lg py-12 px-4" id="quests-list">
+      No quests found matching your search.
+    </div>
+  <% end %>
+<% end %>

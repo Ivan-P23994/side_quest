@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   namespace :volunteer do
     get "/dashboard", to: "dashboard#index", as: :dashboard
+    get "/dashboard/filter_quests", to: "dashboard#filter_quests", as: :filter_quests
   end
 
   namespace :organization do
@@ -40,5 +41,10 @@ Rails.application.routes.draw do
   end
 
   # Quests
-  resources :quests
+  resources :quests do
+    post "apply_for_quest/:id", to: "apply_for_quest", as: :apply_for_quest, on: :member
+    get "show_applications/:id", to: "show_applications", as: :show_applications, on: :member
+    patch "approve_application/:id", to: "approve_application", as: :approve_application, on: :member
+    patch "reject_application/:id", to: "reject_application", as: :reject_application, on: :member
+  end
 end
