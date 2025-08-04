@@ -1,5 +1,4 @@
 require 'faker'
-require 'bcrypt'
 require 'csv'
 
 puts "Seeding users..."
@@ -23,6 +22,24 @@ user_types.each do |user_type|
   users[user_type] = user
   puts "Created #{user_type} user with email: #{email}"
 end
+
+require 'faker'
+
+20.times do |i|
+  first_name = Faker::Name.first_name
+  last_name  = Faker::Name.last_name
+  email = "#{first_name.downcase}.#{last_name.downcase}#{i+1}@example.com"
+
+  User.create!(
+    email_address: email,
+    password: DEFAULT_PASSWORD,
+    password_confirmation: DEFAULT_PASSWORD,
+    user_type: "volunteer",
+    active: true
+  )
+  puts "Created volunteer user with email: #{email}"
+end
+
 
 puts "Seeding missions..."
 
@@ -54,6 +71,31 @@ quests_csv = CSV.parse(quests_csv_text, headers: true)
 quests_csv.each do |row|
   Quest.create!(title: row['title'], mission_id: row['mission_id'], description: row['description'])
 end
+
+
+# Grab all volunteer users (assuming 'volunteer' as user_type)
+volunteers = User.where(user_type: 'volunteer').to_a
+
+puts "Seeding applications..."
+
+Quest.all.each do |quest|
+  # Pick 10 random, unique volunteers for each quest
+  applicants = volunteers.sample(10)
+
+  applicants.each do |volunteer|
+    # Find the mission owner as approver
+    approver_id = quest.mission.owner_id
+
+    Application.create!(
+      quest_id: quest.id,
+      applicant_id: volunteer.id,
+      approver_id: approver_id,
+      status: "pending"
+    )
+    puts "Created application for quest #{quest.id} by volunteer #{volunteer.email_address}"
+  end
+end
+
 
 
 puts "Seeding completed!"
