@@ -23,7 +23,9 @@ user_types.each do |user_type|
   puts "Created #{user_type} user with email: #{email}"
 end
 
-require 'faker'
+
+# Create 20 volunteer users with unique emails
+puts "Creating 20 volunteer users..."
 
 20.times do |i|
   first_name = Faker::Name.first_name
@@ -40,11 +42,49 @@ require 'faker'
   puts "Created volunteer user with email: #{email}"
 end
 
+# Create organization users for Dublin-based organizations
+puts "Creating organization users for Dublin-based organizations..."
+
+# List of Dublin-based organizations
+
+dublin_orgs = [
+  "Dublin Simon Community",
+  "Focus Ireland",
+  "ALONE",
+  "SVP Dublin",
+  "Jigsaw Dublin City",
+  "Dublin Rape Crisis Centre",
+  "Inner City Helping Homeless",
+  "Crosscare",
+  "The Peter McVerry Trust",
+  "Age Action Ireland"
+]
+
+dublin_orgs.each_with_index do |org_name, i|
+  email = "org#{i+1}@example.com"
+  user = User.create!(
+    email_address: email,
+    password: DEFAULT_PASSWORD,
+    password_confirmation: DEFAULT_PASSWORD,
+    user_type: "organization",
+    active: true
+  )
+  user.create_profile!(
+    username: org_name,
+    website: Faker::Internet.url,
+    phone_number: Faker::PhoneNumber.phone_number,
+    country: "Ireland",
+    city: "Dublin",
+    about_me: Faker::Company.catch_phrase
+  )
+  puts "Created organization user: #{org_name} (#{email})"
+end
+
 
 puts "Seeding missions..."
 
 # Mission Seeding
-
+organizations = User.where(user_type: 'organization').pluck(:id)
 missions_csv_path = Rails.root.join('db', 'missions.csv')  # adjust path if needed
 missions_csv_text = File.read(missions_csv_path)
 missions_csv = CSV.parse(missions_csv_text, headers: true)
@@ -54,7 +94,7 @@ missions_csv.each do |row|
   Mission.create!(
     title: row['title'],
     description: row['description'],
-    owner_id: users['organization'].id
+    owner_id: organizations.sample  # Randomly assign an organization as the owner
   )
 end
 
