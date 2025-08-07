@@ -104,6 +104,14 @@ GEM
     drb (2.2.3)
     erb (5.0.1)
     erubi (1.13.1)
+    eth (0.5.15)
+      bigdecimal (~> 3.1)
+      forwardable (~> 1.3)
+      keccak (~> 1.3)
+      konstructor (~> 1.0)
+      openssl (~> 3.3)
+      rbsecp256k1 (~> 6.0)
+      scrypt (~> 3.0)
     factory_bot (6.5.4)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.0)
@@ -117,6 +125,18 @@ GEM
       logger
     faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
+    ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-aarch64-linux-musl)
+    ffi (1.17.2-arm-linux-gnu)
+    ffi (1.17.2-arm-linux-musl)
+    ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86_64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
+    ffi (1.17.2-x86_64-linux-musl)
+    ffi-compiler (1.3.2)
+      ffi (>= 1.15.5)
+      rake
+    forwardable (1.3.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -134,6 +154,8 @@ GEM
     json (2.12.2)
     jwt (3.1.2)
       base64
+    keccak (1.3.2)
+    konstructor (1.0.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -153,7 +175,10 @@ GEM
     marcel (1.0.4)
     method_source (1.1.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.25.5)
+    mocha (2.7.1)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
     multi_xml (0.7.2)
       bigdecimal (~> 3.1)
@@ -208,11 +233,13 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    openssl (3.3.0)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    pkg-config (1.6.2)
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
@@ -276,9 +303,15 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.3.0)
+    rbsecp256k1 (6.0.0)
+      mini_portile2 (~> 2.8)
+      pkg-config (~> 1.5)
+      rubyzip (~> 2.3)
     rdoc (6.14.1)
       erb
       psych (>= 4.0.0)
+    redis-client (0.25.1)
+      connection_pool
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -314,7 +347,18 @@ GEM
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
+    rubyzip (2.4.1)
+    scrypt (3.1.0)
+      ffi-compiler (>= 1.0, < 2.0)
+      rake (~> 13)
     securerandom (0.4.1)
+    sidekiq (8.0.6)
+      connection_pool (>= 2.5.0)
+      json (>= 2.9.0)
+      logger (>= 1.6.2)
+      rack (>= 3.1.0)
+      redis-client (>= 0.23.2)
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
@@ -374,11 +418,14 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   dotenv-rails
+  eth
   factory_bot_rails
   faker (~> 2.19)
   importmap-rails
+  json
   lograge
   minitest
+  mocha
   omniauth (~> 2.1, >= 2.1.2)
   omniauth-google-oauth2 (~> 1.2)
   omniauth-rails_csrf_protection (~> 1.0, >= 1.0.2)
@@ -388,6 +435,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0.2)
   rubocop-rails-omakase
+  sidekiq
   stimulus-rails
   tailwindcss-rails
   turbo-rails
