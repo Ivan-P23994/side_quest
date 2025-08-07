@@ -1,4 +1,66 @@
-<div>
-  <h1 class="font-bold text-4xl">Business::Dashboard#index</h1>
-  <p>Find me in app/views/business/dashboard/index.html.erb</p>
+<div id="flash-messages"></div>
+<div class="flex items-center justify-between mt-10">
+  <h1 class="text-2xl font-bold">Business Dashboard</h1>
+  <div class="flex items-center space-x-6">
+    <%= link_to "Pledge Rewards", class: "btn btn-primary" %>
+    <%= button_to "Sign out", session_path, method: :delete, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<div
+  class="hero h-[calc(100vh*1/2)] relative mt-20"
+  style="background-image: url(<%= asset_path('business_hero.jpg') %>); background-size: cover; background-position: center;"
+>
+  <!-- Blurred overlay -->
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm z-0"></div>
+
+  <!-- Content -->
+  <div class="hero-content text-neutral-content text-center relative z-10">
+    <div class="max-w-lg">
+      <h1 class="mb-5 text-amber-600 text-5xl font-bold">Put Your Business at the Heart of Local Change</h1>
+      <p class="mb-6">
+        Become a valued partner in your community by supporting impactful volunteer missions.<br>
+        We offer guidance and support to help you develop an engaging volunteer programme, promote your brand values, and reward volunteers with exclusive vouchers.
+      </p>
+      <%= link_to "Browse Missions", missions_path, class: "btn btn-primary mb-2" %>
+      <%= link_to "Pledge Business Vouchers", new_session_path, class: "btn btn-outline" %>
+    </div>
+  </div>
+</div>
+
+<%= form_with url: business_filter_missions_path, method: :get, local: true,
+  class: "flex flex-wrap items-end gap-4 mt-20 border border-gray-300 rounded-lg p-4 shadow-sm bg-white" do %>
+
+  <!-- Search fields on the left -->
+  <div class="flex flex-col">
+    <%= label_tag :mission_title, "Mission Title", class: "text-md font-bold text-indigo-700 mb-1" %>
+    <%= text_field_tag :mission_title, params[:mission_title], placeholder: "e.g. Community Health",
+                       class: "input input-bordered w-64 border-gray-300" %>
+  </div>
+
+  <div class="flex flex-col">
+    <%= label_tag :organization_name, "Organization", class: "text-md font-bold text-indigo-700 mb-1" %>
+    <%= text_field_tag :organization_name, params[:organization_name], placeholder: "e.g. Local Youth Center",
+                       class: "input input-bordered w-64 border-gray-300" %>
+  </div>
+
+  <!-- Buttons on the right -->
+  <div class="flex gap-2 ml-auto">
+    <%= submit_tag "Filter", class: "btn btn-primary", data: { turbo_stream:"" }%>
+    <%= link_to "Reset", business_dashboard_path, class: "btn btn-outline" %>
+  </div>
+<% end %>
+
+<div class="mt-8 px-4 sm:px-6 lg:px-8 mb-40">
+  <% if @missions&.any? %>
+    <div id="missions-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      <% @missions.each do |mission| %>
+        <%= render 'missions/mission_card', mission: mission, business_card: true %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center text-gray-500 text-base sm:text-lg py-12 px-4" id="missions-list">
+      No missions found matching your search.
+    </div>
+  <% end %>
 </div>

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :omni_auth_identities, dependent: :destroy
   has_many :user_quests
   has_many :quests, through: :user_quests
+  has_one :profile, dependent: :destroy
 
   validates :email_address, presence: true,
               format: { with: URI::MailTo::EMAIL_REGEXP },

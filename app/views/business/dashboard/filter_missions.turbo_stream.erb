@@ -1,0 +1,13 @@
+<%= turbo_stream.replace("missions-list") do %>
+  <% if @missions&.any? %>
+    <div id="missions-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      <% @missions.each do |mission| %>
+        <%= render 'missions/mission_card', mission: mission, business_card: true %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center text-gray-500 text-base sm:text-lg py-12 px-4" id="missions-list">
+      No missions found matching your search.
+    </div>
+  <% end %>
+<% end %>
