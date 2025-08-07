@@ -20,11 +20,6 @@ class VoucherTest < ActiveSupport::TestCase
     assert_includes voucher.errors[:voucher_type], "must exist"
   end
 
-  test "contract_address can be nil" do
-    voucher = build(:voucher, contract_address: nil)
-    assert voucher.valid?
-  end
-
   test "redeemed can be true" do
     voucher = build(:voucher, redeemed: true)
     assert voucher.valid?

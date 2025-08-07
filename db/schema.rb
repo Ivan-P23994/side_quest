@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_113404) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_07_113116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -130,22 +130,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_113404) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
-    t.check_constraint "user_type::text = ANY (ARRAY['business'::character varying::text, 'volunteer'::character varying::text, 'organization'::character varying::text])", name: "user_type_check"
+    t.check_constraint "user_type::text = ANY (ARRAY['business'::character varying, 'volunteer'::character varying, 'organization'::character varying]::text[])", name: "user_type_check"
   end
 
   create_table "voucher_types", force: :cascade do |t|
-    t.string "contract"
+    t.string "transaction_hash"
+    t.string "title"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "voucher_id"
-    t.index ["voucher_id"], name: "index_voucher_types_on_voucher_id"
   end
 
   create_table "vouchers", force: :cascade do |t|
     t.bigint "voucher_type_id", null: false
     t.bigint "owner_id", null: false
-    t.string "contract_address"
+    t.string "transaction_hash"
     t.boolean "redeemed"
+    t.string "title"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_vouchers_on_owner_id"
@@ -165,7 +167,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_113404) do
   add_foreign_key "sessions", "users"
   add_foreign_key "user_quests", "quests"
   add_foreign_key "user_quests", "users"
-  add_foreign_key "voucher_types", "vouchers"
   add_foreign_key "vouchers", "users", column: "owner_id"
   add_foreign_key "vouchers", "voucher_types"
 end

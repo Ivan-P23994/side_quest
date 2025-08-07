@@ -1,0 +1,71 @@
+<div id="flash-messages"></div>
+<div class="flex items-center justify-between mt-10">
+  <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+  <div class="flex items-center space-x-6">
+    <%= link_to "Create Voucher Type", new_admin_voucher_type_path, class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" } %>
+    <%= link_to "Mint Vouchers", new_admin_voucher_path, class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" } %>
+    <%= button_to "Sign out", session_path, method: :delete, class: "btn btn-primary" %>
+  </div>
+</div>
+
+
+<h1 class="text-3xl font-bold mt-12 mb-8 text-indigo-800 tracking-tight">Voucher Types</h1>
+
+<% if @voucher_types.empty? %>
+  <div class="flex flex-col items-center mt-24 text-gray-400 text-lg">
+    <svg class="w-10 h-10 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-1a3 3 0 016 0v1m-6 4h6a2 2 0 002-2v-5a9 9 0 10-10 0v5a2 2 0 002 2z" />
+    </svg>
+    No voucher types found.
+  </div>
+<% else %>
+  <div class="overflow-x-auto shadow-lg rounded-2xl border border-indigo-200 bg-white">
+    <table class="min-w-full divide-y divide-indigo-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-4 text-left text-xl font-extrabold text-indigo-700 uppercase tracking-wider">Title</th>
+          <th class="px-6 py-4 text-left text-lg font-bold text-indigo-600 uppercase tracking-wide">Description</th>
+          <th class="px-6 py-4 text-left text-lg font-bold text-indigo-600 uppercase tracking-wide">Tx Hash</th>
+          <th class="px-6 py-4 text-left text-base font-semibold text-indigo-600 uppercase">Created At</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-indigo-100" id="voucher-types-list" >
+        <% @voucher_types.each do |type| %>
+          <%= render partial: 'admin/dashboard/voucher_type_card', locals: { voucher_type: type } %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<h1 class="text-3xl font-bold mt-12 mb-8 text-indigo-800 tracking-tight">All Vouchers</h1>
+
+<% if @vouchers.empty? %>
+  <div class="flex flex-col items-center mt-24 text-gray-400 text-lg">
+    <svg class="w-10 h-10 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-1a3 3 0 016 0v1m-6 4h6a2 2 0 002-2v-5a9 9 0 10-10 0v5a2 2 0 002 2z" />
+    </svg>
+    No vouchers found.
+  </div>
+<% else %>
+  <div class="overflow-x-auto shadow-lg rounded-2xl border border-indigo-200 bg-white">
+    <table class="min-w-full divide-y divide-indigo-200">
+      <thead>
+        <tr>
+          <th class="px-6 py-4 text-left text-xl font-extrabold text-indigo-700 uppercase tracking-wider">Title</th>
+          <th class="px-6 py-4 text-left text-lg font-bold text-indigo-600 uppercase tracking-wide">Description</th>
+          <th class="px-6 py-4 text-left text-base font-semibold text-indigo-600 uppercase">Type</th>
+          <th class="px-6 py-4 text-left text-base font-semibold text-indigo-600 uppercase">Owner</th>
+          <th class="px-6 py-4 text-left text-base font-semibold text-indigo-600 uppercase">Created At</th>
+          <th class="px-6 py-4 text-left text-base font-semibold text-indigo-600 uppercase">Status</th>
+          <th class="px-6 py-4 text-left text-base font-semibold text-indigo-600 uppercase">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-indigo-100" id="vouchers-list">
+        <% @vouchers.each do |voucher| %>
+          <%= render partial: "admin/dashboard/voucher_card", locals: { voucher: voucher } %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

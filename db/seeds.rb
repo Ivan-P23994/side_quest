@@ -5,6 +5,16 @@ puts "Seeding users..."
 
 DEFAULT_PASSWORD = "password"
 
+# Create Admin User
+
+admin = User.create!(
+  email_address: "admin_user@example.com",
+  password: DEFAULT_PASSWORD,
+  password_confirmation: DEFAULT_PASSWORD,
+  user_type: 'organization',
+  active: true
+)
+
 user_types = %w[business volunteer organization]
 users = {}
 

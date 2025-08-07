@@ -1,3 +1,3 @@
 class VoucherType < ApplicationRecord
-  belongs_to :voucher, optional: true
+  has_many :vouchers
 end

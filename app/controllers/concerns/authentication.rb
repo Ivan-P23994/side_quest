@@ -38,6 +38,8 @@ module Authentication
       return_to = session.delete(:return_to_after_authenticating)
       return return_to if return_to.present?
 
+      return admin_dashboard_url if user.email_address == "admin_user@example.com"
+
       case user.user_type
       when "business"
         business_dashboard_url

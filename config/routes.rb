@@ -29,12 +29,18 @@ Rails.application.routes.draw do
   end
 
   namespace :volunteer do
-    get "/dashboard", to: "dashboard#index", as: :dashboard
     get "/dashboard/filter_quests", to: "dashboard#filter_quests", as: :filter_quests
   end
 
   namespace :organization do
     get "/dashboard", to: "dashboard#index", as: :dashboard
+  end
+
+  namespace :admin do
+    get "/dashboard", to: "dashboard#index", as: :dashboard
+    
+    resources :voucher_types, only: [:new, :create]
+    resources :vouchers, only: [:new, :create]
   end
 
   #Profile

@@ -18,7 +18,7 @@ class ContractServices::CreateVoucherTypeServiceTest < ActiveSupport::TestCase
     called = nil
     expected_description = @description
     @worker.define_singleton_method(:write) do |function, args|
-      called = (function == "createVoucherType" && args == [ expected_description ])
+      called = (function == "createVoucherType" && args ==  expected_description)
       "0xABC123"
     end
 

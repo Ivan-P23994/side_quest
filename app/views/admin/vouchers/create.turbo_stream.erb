@@ -1,0 +1,7 @@
+<%= turbo_stream.append "vouchers-list" do %>
+  <%= render partial: 'admin/dashboard/voucher_type_card', locals: { voucher_type: @voucher } %>
+<% end %>
+
+<%= turbo_stream.prepend "flash-messages" do %>
+  <%= render partial: "shared/alert", locals: { message: "Voucher Type created succesfully", flash_type: "notice" } %>
+<% end %>
