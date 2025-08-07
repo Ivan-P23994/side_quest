@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+  
   resource :session
   resource :registration, only: %i[new create]
   resources :passwords, param: :token
@@ -21,6 +25,7 @@ Rails.application.routes.draw do
   # Dashboards
   namespace :business do
     get "/dashboard", to: "dashboard#index", as: :dashboard
+    get "/dashboard/filter_missions", to: "dashboard#filter_missions", as: :filter_missions
   end
 
   namespace :volunteer do
