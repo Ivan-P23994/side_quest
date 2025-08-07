@@ -1,4 +1,4 @@
-require 'sidekiq'
+require "sidekiq"
 
 module ContractServices
   class ConfirmOwner < VoucherContractService

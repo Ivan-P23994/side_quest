@@ -1,7 +1,7 @@
-require 'test_helper'
-require 'sidekiq/testing'
+require "test_helper"
+require "sidekiq/testing"
 Sidekiq::Testing.fake!
-require_relative '../../../app/services/contract_services/burn_voucher_service'
+require_relative "../../../app/services/contract_services/burn_voucher_service"
 
 class ContractServices::BurnVoucherServiceTest < ActiveSupport::TestCase
   setup do
@@ -13,7 +13,7 @@ class ContractServices::BurnVoucherServiceTest < ActiveSupport::TestCase
   end
 
   test "enqueues the job" do
-    assert_difference 'ContractServices::BurnVoucherService.jobs.size', 1 do
+    assert_difference "ContractServices::BurnVoucherService.jobs.size", 1 do
       ContractServices::BurnVoucherService.perform_async(@from, @id, @amount)
     end
   end
@@ -35,7 +35,7 @@ class ContractServices::BurnVoucherServiceTest < ActiveSupport::TestCase
 
     assert_equal true, @worker.instance_variable_get(:@test_write_called)
     assert_equal "burnVoucher", @worker.instance_variable_get(:@test_function_arg)
-    assert_equal [@from, @id, @amount], @worker.instance_variable_get(:@test_args_arg)
+    assert_equal [ @from, @id, @amount ], @worker.instance_variable_get(:@test_args_arg)
     assert_equal "tx_hash_burn", result
   end
 

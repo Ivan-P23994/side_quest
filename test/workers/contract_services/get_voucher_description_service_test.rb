@@ -6,13 +6,13 @@ class GetVoucherDescriptionServiceTest < ActiveSupport::TestCase
   end
 
   test "enqueues the job" do
-    assert_difference 'ContractServices::GetVoucherDescriptionService.jobs.size', 1 do
+    assert_difference "ContractServices::GetVoucherDescriptionService.jobs.size", 1 do
       ContractServices::GetVoucherDescriptionService.perform_async(@id)
     end
   end
 
   test "calls read with correct arguments" do
-    @worker.expects(:read).with("getVoucherDescription", [@id]).returns("Voucher description here")
+    @worker.expects(:read).with("getVoucherDescription", [ @id ]).returns("Voucher description here")
     assert_equal "Voucher description here", @worker.perform(@id)
   end
 

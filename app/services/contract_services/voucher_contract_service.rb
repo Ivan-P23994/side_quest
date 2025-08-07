@@ -1,6 +1,6 @@
-require 'eth'
-require 'dotenv/load'
-require 'json'
+require "eth"
+require "dotenv/load"
+require "json"
 
 class ContractServices::VoucherContractService
   def initialize

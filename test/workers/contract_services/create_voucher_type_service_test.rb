@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 
 class ContractServices::CreateVoucherTypeServiceTest < ActiveSupport::TestCase
@@ -9,7 +9,7 @@ class ContractServices::CreateVoucherTypeServiceTest < ActiveSupport::TestCase
   end
 
   test "enqueues the job" do
-    assert_difference 'ContractServices::CreateVoucherTypeService.jobs.size', 1 do
+    assert_difference "ContractServices::CreateVoucherTypeService.jobs.size", 1 do
       ContractServices::CreateVoucherTypeService.perform_async(@description)
     end
   end
@@ -18,7 +18,7 @@ class ContractServices::CreateVoucherTypeServiceTest < ActiveSupport::TestCase
     called = nil
     expected_description = @description
     @worker.define_singleton_method(:write) do |function, args|
-      called = (function == "createVoucherType" && args == [expected_description])
+      called = (function == "createVoucherType" && args == [ expected_description ])
       "0xABC123"
     end
 

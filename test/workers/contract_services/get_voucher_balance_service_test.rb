@@ -7,13 +7,13 @@ class GetVoucherBalanceServiceTest < ActiveSupport::TestCase
   end
 
   test "enqueues the job" do
-    assert_difference 'ContractServices::GetVoucherBalanceService.jobs.size', 1 do
+    assert_difference "ContractServices::GetVoucherBalanceService.jobs.size", 1 do
       ContractServices::GetVoucherBalanceService.perform_async(@account, @id)
     end
   end
 
   test "calls read with correct arguments" do
-    @worker.expects(:read).with("balanceOf", [@account, @id]).returns(5)
+    @worker.expects(:read).with("balanceOf", [ @account, @id ]).returns(5)
     assert_equal 5, @worker.perform(@account, @id)
   end
 

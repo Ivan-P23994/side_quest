@@ -1,4 +1,4 @@
-require 'sidekiq'
+require "sidekiq"
 
 module ContractServices
   class GetVoucherBalanceService < VoucherContractService
@@ -6,7 +6,7 @@ module ContractServices
     sidekiq_options retry: false
 
     def perform(account, id)
-      read("balanceOf", [account, id])
+      read("balanceOf", [ account, id ])
     end
   end
 end

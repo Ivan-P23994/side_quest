@@ -1,4 +1,4 @@
-require 'sidekiq'
+require "sidekiq"
 
 module ContractServices
   class GetVoucherDescriptionService < VoucherContractService
@@ -6,7 +6,7 @@ module ContractServices
     sidekiq_options retry: false
 
     def perform(id)
-      read("getVoucherDescription", [id])
+      read("getVoucherDescription", [ id ])
     end
   end
 end
