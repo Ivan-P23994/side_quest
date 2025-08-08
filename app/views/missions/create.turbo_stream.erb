@@ -1,5 +1,5 @@
 <%= turbo_stream.append "mission-list" do %>
-  <%= render partial: "missions/mission_card", locals: { mission: @mission } %>
+  <%= render partial: "missions/mission_card", locals: { mission: @mission, business_card: false } %>
 <% end %>
 
 <%= turbo_stream.prepend "flash-messages" do %>

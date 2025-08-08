@@ -1,6 +1,6 @@
     <div class="card bg-base-100 shadow-md" id="<%= dom_id(mission)%>">
       <figure>
-        <%= image_tag "dublin-clean-up.jpg", class: "w-full h-auto" %>
+        <%= image_tag cycle("dublin-clean-up.jpg"), class: "w-full h-2/3 rounded-xl shadow" %>
       </figure>
       <div class="card-body" >
         <h2 class="card-title" id="mission-<%= dom_id(mission)%>-title"><%= mission.title %></h2>

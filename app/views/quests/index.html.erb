@@ -1,9 +1,11 @@
 <div id="flash-messages"></div>
 <div class="flex justify-between items-center">
-  <h1>List of Quests for given Mission</h1>
+  <h1 class="text-2xl font-bold text-indigo-700 mb-8 mt-10 px-4">
+  List of Quests for given Mission
+  </h1>
   <div class="flex items-center space-x-6">
     <%= link_to "Create Quest", new_quest_path(mission_id: @mission.id), class: "btn btn-primary", data: { action: "click->modal#open", turbo_stream: "" } %>
-    <%= link_to "Back to Missions", organization_dashboard_path, class: "btn btn-secondary" %>
+    <%= link_to "Back to Missions", organization_dashboard_path, class: "btn btn-primary" %>
   </div>
 </div>
 

@@ -5,7 +5,7 @@ class Volunteer::DashboardController < ApplicationController
       .where("applications.applicant_id IS NULL OR applications.applicant_id != ?", current_user.id)
       .select("quests.*, RANDOM() as rand")
       .order("rand")
-      .limit(10)
+      .limit(20)
   end
 
   def filter_quests

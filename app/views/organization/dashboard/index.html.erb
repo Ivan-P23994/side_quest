@@ -10,7 +10,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4" id="mission-list">
   <% if @missions.any? %>
       <!-- First mission -->
-      <%= render "missions/mission_card", mission: @missions.first %>
+      <%= render "missions/mission_card", mission: @missions.first, business_card: false %>
 
 
     <!-- Reserved slot -->
@@ -20,7 +20,7 @@
 
     <!-- Rest of missions -->
     <% @missions.drop(1).each do |mission| %>
-      <%= render "missions/mission_card", mission: mission %>
+      <%= render "missions/mission_card", mission: mission, business_card: false %>
     <% end %>
   <% end %>
 </div>

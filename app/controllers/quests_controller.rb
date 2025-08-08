@@ -73,14 +73,16 @@ class QuestsController < ApplicationController
 
   def apply_for_quest
     @quest = Quest.find(params[:id])
-    if current_user.can_apply_for?(@quest)
-      @quest.applications.create(user: current_user, applicant: current_user, status: "pending", approver: @quest.mission.owner)
-      redirect_to volunteer_dashboard_path, notice: "Application submitted successfully."
+    if !current_user.can_apply_for?(@quest)
+      @quest.applications.create(applicant: current_user, status: "pending", approver: @quest.mission.owner)
+      respond_to do |format|
+        format.turbo_stream
+      end
     else
       render turbo_stream: turbo_stream.prepend(
         "flash-messages",
         partial: "shared/alert",
-        locals: { message: "You can not apply to this quest" }
+        locals: { message: "You can not apply to this quest", flash_type: :error }
       )
     end
   end
@@ -149,8 +151,7 @@ class QuestsController < ApplicationController
   def register_user_quest
     UserQuest.create!(
       user: current_user,
-      quest: @quest,
-      status: "active"
+      quest: @quest
     )
   end
 end

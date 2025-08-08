@@ -2,6 +2,8 @@
 <html data-theme="bumblebee">
   <head>
     <title><%= content_for(:title) || "Side Quest" %></title>
+    <meta name="turbo-cache-control" content="no-preview">
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>

@@ -90,14 +90,28 @@ dublin_orgs.each_with_index do |org_name, i|
   puts "Created organization user: #{org_name} (#{email})"
 end
 
+puts "Seeding primary missions..."
 
-puts "Seeding missions..."
-
-# Mission Seeding
 organizations = User.where(user_type: 'organization').pluck(:id)
 missions_csv_path = Rails.root.join('db', 'missions.csv')  # adjust path if needed
 missions_csv_text = File.read(missions_csv_path)
 missions_csv = CSV.parse(missions_csv_text, headers: true)
+
+organization_example_user =  users['organization']
+
+missions_csv.each do |row|
+  puts row.to_h.inspect
+  Mission.create!(
+    title: row['title'],
+    description: row['description'],
+    owner_id: organization_example_user.id
+  )
+end
+
+
+puts "Seeding secondary missions..."
+
+# Mission Seeding
 
 missions_csv.each do |row|
   puts row.to_h.inspect
@@ -124,6 +138,7 @@ end
 
 
 # Grab all volunteer users (assuming 'volunteer' as user_type)
+
 volunteers = User.where(user_type: 'volunteer').to_a
 
 puts "Seeding applications..."
